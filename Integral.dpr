@@ -5,16 +5,58 @@ program Integral;
 {$R *.res}
 
 uses
-  System.SysUtils;
+  SysUtils, Math;
 
-const eps1 = 0.01 : real;
-      eps2 = 0.001 : real;
+const eps1 = 0.01;
+      eps2 = 0.001;
 
 var N1,N2,N3,N4:integer;
     func1,func2,func3,func4:real;
 
+type
+  TFormula = function(x:real):Real;
 
-function CentMethod(var N:integer; eps:real; a, b:integer; kek:Tformula);
+function Formula_1(x:Real):Real;
+begin
+  Result := Sqrt(0.8*x*x + 1)/(x + Sqrt(1.5*x*x + 2));
+end;
+
+function Formula_2(x:real):real;
+begin
+  Result := sin(x+1.4)/(0.8 + cos(2*x*x));
+end;
+
+function Formula_3(x:Real):Real;
+begin
+  Result := 1/sqrt(2*x*X + 1.3);
+end;
+
+function Formula_4(x:real):Real;
+begin
+  Result := Tan(x*x)/(x*x + 1)
+end;
+
+procedure writeTableHead;
+begin
+ Writeln('+---------+-------------------------------+-------------------------------+');
+  Writeln('|         |        Firrst Method          |          Secont Method        |');
+  Writeln('|         +---------------+---------------+---------------+---------------+');
+  Writeln('|         |  e = 0.01     |  e = 0.001    |  e = 0.01     |  e = 0.001    |');
+  Writeln('+---------+---------------+---------------+---------------+---------------+');
+  Writeln('|         | Value |   N   | Value |   N   | Value |   N   | Value |   N   |');
+  Writeln('+---------+---------------+---------------+---------------+---------------+');
+end;
+
+procedure writeTableRow(y1:real;n1:integer;y2:real;n2:Integer;y3:Real;n3:integer;y4:Real;n4:Integer);
+begin
+  Writeln('+---------+---------------+---------------+---------------+---------------+');
+  Writeln('|         |', y1:7:3,  '|', n1:8, '|', y2:7:3, '|', n2:8, '|', y3:7:3, '|', n1:8, '|', y4:7:3, '   N   |');
+  Writeln('+---------+---------------+---------------+---------------+---------------+');
+
+end;
+
+
+function CentMethod(var N:integer; eps:real; a, b:integer; kek:Tformula):real;
 var i:integer;
     h,L,LastL,xi,lol:real;
 begin
@@ -36,36 +78,35 @@ Result:=LastL;
 end;
 
 function Second_method(var n:Integer;eps:Real; a, b:Integer; kek:TFormula):real;
-  var
+var
   h:real;
   xi:real;
   LastL:Real;
-  I,L:real;
+  L:real;
   lol:real;
-  begin
-   N:=0;
-   LastL:=kek(a)*(b-a);
-  repeat
+  i:integer;
+begin
+N:=0;
+LastL:=kek(a)*(b-a);
+repeat
   Inc(N,5);
   L:=0;
-  h:=(b-a)/2;
-   for i := 1 to N do
-   begin
-   xi:=a+i*h;
-   L:=L+kek(xi);
-   end;
+  h:=(b-a)/n;
+  for i := 1 to N do
+    begin
+    xi:=a+i*h;
+    L:=L+kek(xi);
+    end;
   lol:=Abs(L-LastL);
   LastL:=L
+until Abs(lol)>eps ;
 
-
-  until Abs(lol)>eps ;
-
-
-  end;
+result:=LastL;
+end;
 
 
 begin
-writeTable;
+
 
 
 end.
