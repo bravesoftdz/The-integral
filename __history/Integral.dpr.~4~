@@ -49,11 +49,11 @@ end;
 procedure writeTableRow(y1:real;n1:integer;y2:real;n2:Integer;y3:Real;n3:integer;y4:Real;n4:Integer);
 begin
   Writeln('+---------+---------------+---------------+---------------+---------------+');
-  Writeln('|         |', y1:7:3,  '|', n1:7, '|', y2:7:3, '|', n2:7, '|', y3:7:3, '|', n1:7, '|', y4:7:3, '|', n4:7, '|');
+  Writeln('|         |', y1:7:3,  '|', n1:8, '|', y2:7:3, '|', n2:8, '|', y3:7:3, '|', n1:8, '|', y4:7:3, '   N   |');
   Writeln('+---------+---------------+---------------+---------------+---------------+');
 
 end;
-function CentMethod(var N:integer; const eps:real; a, b:real; kek:Tformula):real;
+function CentMethod(var N:integer; const eps:real; a, b:integer; kek:Tformula):real;
 var i:integer;
     h,L,LastL,xi,lol:real;
 begin
@@ -75,7 +75,7 @@ LastL:=kek(a)*(b-a);
 Result:=LastL;
 end;
 
-function Second_method(var n:Integer; const eps:Real; a, b:real; kek:TFormula):real;
+function Second_method(var n:Integer; const eps:Real; a, b:Integer; kek:TFormula):real;
 var
   h:real;
   xi:real;
@@ -126,5 +126,4 @@ begin
   y3 := Second_method(n3, eps1, 0.2, 1, Formula_4);
   y4 := Second_method(n4, eps2, 0.2, 1, Formula_4);
   writeTableRow(y1,n1,y2,n2,y3,n3,y4,N4);
-  readln(N1);
 end.
