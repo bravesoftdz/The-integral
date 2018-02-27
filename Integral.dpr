@@ -8,6 +8,12 @@ uses
   System.SysUtils, math;
 type
   TFormula = function(x:real):Real;
+const eps1 = 0.01;
+      eps2 = 0.001;
+
+var N1,N2,N3,N4:integer;
+    y1,y2,y3,y4:real;
+    func1,func2,func3,func4:real;
 
 function Formula_1(x:Real):Real;
 begin
@@ -47,10 +53,77 @@ begin
   Writeln('+---------+---------------+---------------+---------------+---------------+');
 
 end;
+function CentMethod(var N:integer; const eps:real; a, b:integer; kek:Tformula):real;
+var i:integer;
+    h,L,LastL,xi,lol:real;
+begin
+N:=0;
+LastL:=kek(a)*(b-a);
+  repeat
+  inc(N,5);
+  L:=0;
+  h:=(b-a)/n;
+  for i := 0 to N-1 do
+    begin
+    xi:=a+i*h+h/2;
+    L:=L+kek(xi);
+    end;
+  L:=L*h;
+  lol:=abs(L-LastL);
+  LastL:=L;
+  until lol<=eps;
+Result:=LastL;
+end;
+
+function Second_method(var n:Integer; const eps:Real; a, b:Integer; kek:TFormula):real;
+var
+  h:real;
+  xi:real;
+  LastL:Real;
+  L:real;
+  lol:real;
+  i:integer;
+begin
+N:=0;
+LastL:=kek(a)*(b-a);
+repeat
+  Inc(N,5);
+  L:=0;
+  h:=(b-a)/n;
+  for i := 1 to N do
+    begin
+    xi:=a+i*h;
+    L:=L+kek(xi);
+    end;
+    L:=L*h;
+  lol:=Abs(L-LastL);
+  LastL:=L
+until lol<=eps ;
+
+result:=LastL;
+end;
 
 begin
   // Первый метод
-
-
-
+  writeTableHead;
+  y1 := CentMethod(n1, eps1, 0.8, 1.8, Formula_1);
+  y2 := CentMethod(n2, eps2, 0.8, 1.8, Formula_1);
+  y3 := Second_method(n3, eps1, 0.8, 1.8, Formula_1);
+  y4 := Second_method(n4, eps2, 0.8, 1.8, Formula_1);
+  writeTableRow(y1,n1,y2,n2,y3,n3,y4,N4);
+  y1 := CentMethod(n1, eps1, 0.4, 1, Formula_2);
+  y2 := CentMethod(n2, eps2, 0.4, 1, Formula_2);
+  y3 := Second_method(n3, eps1, 0.4, 1, Formula_2);
+  y4 := Second_method(n4, eps2, 0.4, 1, Formula_2);
+  writeTableRow(y1,n1,y2,n2,y3,n3,y4,N4);
+  y1 := CentMethod(n1, eps1, 1,2, Formula_3);
+  y2 := CentMethod(n2, eps2, 1,2, Formula_3);
+  y3 := Second_method(n3, eps1,  1,2, Formula_3);
+  y4 := Second_method(n4, eps2, 1,2, Formula_3);
+  writeTableRow(y1,n1,y2,n2,y3,n3,y4,N4);
+  y1 := CentMethod(n1, eps1, 0.2, 1, Formula_4);
+  y2 := CentMethod(n2, eps2, 0.2, 1, Formula_4);
+  y3 := Second_method(n3, eps1, 0.2, 1, Formula_4);
+  y4 := Second_method(n4, eps2, 0.2, 1, Formula_4);
+  writeTableRow(y1,n1,y2,n2,y3,n3,y4,N4);
 end.
