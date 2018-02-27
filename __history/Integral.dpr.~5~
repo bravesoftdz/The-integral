@@ -71,7 +71,6 @@ LastL:=kek(a)*(b-a);
     xi:=a+i*h+h/2;
     L:=L+kek(xi);
     end;
-  L:=L*h;
   lol:=abs(L-LastL);
   LastL:=L;
   until lol<=eps;
@@ -98,10 +97,9 @@ repeat
     xi:=a+i*h;
     L:=L+kek(xi);
     end;
-    L:=L*h;
   lol:=Abs(L-LastL);
   LastL:=L
-until lol<=eps ;
+until Abs(lol)>eps ;
 
 result:=LastL;
 end;
