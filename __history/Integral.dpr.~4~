@@ -56,7 +56,7 @@ begin
 end;
 
 
-function CentMethod(var N:integer; const eps:real; a, b:integer; kek:Tformula):real;
+function CentMethod(var N:integer; eps:real; a, b:integer; kek:Tformula):real;
 var i:integer;
     h,L,LastL,xi,lol:real;
 begin
@@ -77,7 +77,7 @@ LastL:=kek(a)*(b-a);
 Result:=LastL;
 end;
 
-function Second_method(var n:Integer; const eps:Real; a, b:Integer; kek:TFormula):real;
+function Second_method(var n:Integer;eps:Real; a, b:Integer; kek:TFormula):real;
 var
   h:real;
   xi:real;
